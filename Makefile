@@ -1,11 +1,17 @@
-NAME = scaffold-go
-VERSION = $$(git describe --tags --always || echo "unknown version")
-BUILD_TIME = $(shell date -u)
+NAME := scaffold-go
+VERSION := $(shell git describe --tags --always)
+SRC_DIR := .
 
-GO_BUILD = CGO_ENABLED=0 go build -ldflags "'-X main.Version=$(VERSION)' '-X main.Build=$(BUILD_TIME)'"
+GO_BUILD := go build -ldflags "-X main.Version=$(VERSION)"
+
 build: clean
-	@echo "building $(VERSION). ($(BUILD_TIME))"
-	$(GO_BUILD) -o build/$(NAME) ./...
+	@echo "build $(VERSION)"
+	@$(GO_BUILD) -o ./build/$(NAME) $(SRC_DIR)
+
+install:
+	@echo "installing to $(GOPATH)/bin"
+	@cd $(SRC_DIR) && go install
 
 clean:
-	rm -rf build/ && mkdir build/
+	@echo "cleaning artifacts"
+	@rm -rf build/ && mkdir build/
