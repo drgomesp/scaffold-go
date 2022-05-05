@@ -7,7 +7,6 @@ import (
 )
 
 var Version string
-var BuildTime string
 
 func init() {
 	zerolog.SetGlobalLevel(zerolog.TraceLevel)
@@ -17,10 +16,6 @@ func init() {
 func main() {
 	if Version != "" {
 		log.Info().Msgf("Version: %s\t", Version)
-	}
-
-	if BuildTime != "" {
-		log.Info().Msgf("Build: %s\t", BuildTime)
 	}
 
 	log.Info().Msg("kurwa!")
